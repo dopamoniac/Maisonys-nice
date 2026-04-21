@@ -22,13 +22,13 @@ const fadeIn = {
 // Desktop: slow cinematic Ken Burns — scale + drift, mirror so no hard loop reset
 const kenBurnsDesktop = {
   animate: { scale: [1, 1.045], x: [0, -14], y: [0, -9] },
-  transition: { duration: 30, ease: EASE_IN_OUT, repeat: Infinity as const, repeatType: "mirror" as const },
+  transition: { duration: 30, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror" as const },
 };
 
 // Mobile: scale-only Ken Burns, no x drift — keeps bottle centred
 const kenBurnsMobile = {
   animate: { scale: [1, 1.03], y: [0, -6] },
-  transition: { duration: 28, ease: EASE_IN_OUT, repeat: Infinity as const, repeatType: "mirror" as const },
+  transition: { duration: 28, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror" as const },
 };
 
 export default function Home() {
