@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, type Variants, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import heroDesktopImg from "@assets/upscalecover_1776804479421.png";
@@ -7,14 +7,14 @@ import { baccaratGiftImg, productImages } from "@/lib/images";
 import { fragrances, collections } from "@/lib/data";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const EASE_IN_OUT: [number, number, number, number] = [0.45, 0, 0.55, 1];
+const EASE_IN_OUT: [number, number, number, number] = [0.83, 0, 0.17, 1];
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 1, ease: EASE_OUT } }
 };
 
-const fadeIn = {
+const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 1.2, ease: EASE_OUT } }
 };
