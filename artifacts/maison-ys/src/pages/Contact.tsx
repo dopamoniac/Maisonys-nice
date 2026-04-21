@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail } from "lucide-react";
 
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 export default function Contact() {
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } }
   };
 
   return (

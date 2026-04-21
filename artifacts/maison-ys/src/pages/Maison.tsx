@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import heroProductImg from "@assets/ys.jpeg";
 
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 export default function Maison() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -15,7 +17,7 @@ export default function Maison() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: EASE_OUT },
     },
   };
 

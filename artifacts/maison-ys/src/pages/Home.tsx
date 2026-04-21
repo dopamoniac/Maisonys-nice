@@ -6,26 +6,29 @@ import heroMobileImg from "@assets/abc-mobile_(1)_1776804978771.png";
 import { baccaratGiftImg, productImages } from "@/lib/images";
 import { fragrances, collections } from "@/lib/data";
 
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_IN_OUT: [number, number, number, number] = [0.45, 0, 0.55, 1];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: EASE_OUT } }
 };
 
 const fadeIn = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1.2, ease: "easeOut" } }
+  visible: { opacity: 1, transition: { duration: 1.2, ease: EASE_OUT } }
 };
 
 // Desktop: slow cinematic Ken Burns — scale + drift, mirror so no hard loop reset
 const kenBurnsDesktop = {
   animate: { scale: [1, 1.045], x: [0, -14], y: [0, -9] },
-  transition: { duration: 30, ease: "easeInOut", repeat: Infinity as const, repeatType: "mirror" as const },
+  transition: { duration: 30, ease: EASE_IN_OUT, repeat: Infinity as const, repeatType: "mirror" as const },
 };
 
 // Mobile: scale-only Ken Burns, no x drift — keeps bottle centred
 const kenBurnsMobile = {
   animate: { scale: [1, 1.03], y: [0, -6] },
-  transition: { duration: 28, ease: "easeInOut", repeat: Infinity as const, repeatType: "mirror" as const },
+  transition: { duration: 28, ease: EASE_IN_OUT, repeat: Infinity as const, repeatType: "mirror" as const },
 };
 
 export default function Home() {
@@ -91,7 +94,7 @@ export default function Home() {
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.06, 0.2, 0.06], x: [0, 18, 0] }}
-            transition={{ duration: 22, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+            transition={{ duration: 22, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror" }}
             style={{ background: "radial-gradient(ellipse 60% 55% at 62% 52%, rgba(190,105,12,0.28) 0%, transparent 68%)" }}
           />
 
@@ -99,7 +102,7 @@ export default function Home() {
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.04, 0.14, 0.04], x: [0, -12, 0] }}
-            transition={{ duration: 28, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 6 }}
+            transition={{ duration: 28, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 6 }}
             style={{ background: "radial-gradient(ellipse 45% 50% at 70% 60%, rgba(160,85,8,0.2) 0%, transparent 62%)" }}
           />
 
@@ -112,7 +115,7 @@ export default function Home() {
               transformOrigin: "66% 55%",
             }}
             animate={{ opacity: [0.05, 0.32, 0.05], scale: [0.95, 1.06, 0.95] }}
-            transition={{ duration: 9, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 1 }}
+            transition={{ duration: 9, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 1 }}
           />
         </div>
 
@@ -123,7 +126,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, x: -14 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 1, delay: 0.3, ease: EASE_OUT }}
             className="flex items-center gap-3 mb-7"
           >
             <motion.div
@@ -152,7 +155,7 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.75, ease: "easeOut" }}
+            transition={{ duration: 1, delay: 0.75, ease: EASE_OUT }}
             className="font-serif italic mb-9"
             style={{ color: "#C9A84C", fontSize: "clamp(0.9rem, 3.5vw, 1.1rem)" }}
           >
@@ -163,7 +166,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.0, ease: "easeOut" }}
+            transition={{ duration: 1, delay: 1.0, ease: EASE_OUT }}
           >
             <Link href="/collection">
               <motion.span
@@ -219,7 +222,7 @@ export default function Home() {
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.05, 0.22, 0.05], x: [0, 28, 0] }}
-            transition={{ duration: 24, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+            transition={{ duration: 24, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror" }}
             style={{ background: "radial-gradient(ellipse 55% 65% at 60% 50%, rgba(195,108,12,0.3) 0%, transparent 68%)" }}
           />
 
@@ -227,7 +230,7 @@ export default function Home() {
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.03, 0.16, 0.03], x: [0, -20, 0] }}
-            transition={{ duration: 32, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 8 }}
+            transition={{ duration: 32, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 8 }}
             style={{ background: "radial-gradient(ellipse 48% 58% at 72% 55%, rgba(165,88,8,0.22) 0%, transparent 64%)" }}
           />
 
@@ -235,7 +238,7 @@ export default function Home() {
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.0, 0.1, 0.0], x: [0, 14, 0], y: [0, -8, 0] }}
-            transition={{ duration: 20, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 4 }}
+            transition={{ duration: 20, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 4 }}
             style={{ background: "radial-gradient(ellipse 40% 45% at 78% 42%, rgba(80,45,5,0.25) 0%, transparent 70%)" }}
           />
 
@@ -248,7 +251,7 @@ export default function Home() {
               transformOrigin: "67% 49%",
             }}
             animate={{ opacity: [0.04, 0.36, 0.04], scale: [0.92, 1.08, 0.92] }}
-            transition={{ duration: 10, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 2 }}
+            transition={{ duration: 10, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 2 }}
           />
 
           {/* Secondary warm shimmer — lantern area, right edge */}
@@ -260,7 +263,7 @@ export default function Home() {
               transformOrigin: "90% 38%",
             }}
             animate={{ opacity: [0.0, 0.22, 0.0] }}
-            transition={{ duration: 7, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 3 }}
+            transition={{ duration: 7, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 3 }}
           />
         </div>
 
@@ -271,7 +274,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, x: -18 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.1, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 1.1, delay: 0.2, ease: EASE_OUT }}
             className="flex items-center gap-4 mb-10"
           >
             <motion.div
@@ -300,7 +303,7 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.75, ease: "easeOut" }}
+            transition={{ duration: 1.2, delay: 0.75, ease: EASE_OUT }}
             className="font-serif italic mb-16"
             style={{ color: "#C9A84C", fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)" }}
           >
@@ -311,7 +314,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, delay: 1.05, ease: "easeOut" }}
+            transition={{ duration: 1.1, delay: 1.05, ease: EASE_OUT }}
           >
             <Link href="/collection">
               <motion.span
@@ -323,7 +326,7 @@ export default function Home() {
                 Découvrir la Collection
                 <motion.span
                   animate={{ x: [0, 3, 0] }}
-                  transition={{ duration: 2.5, ease: "easeInOut", repeat: Infinity, delay: 2 }}
+                  transition={{ duration: 2.5, ease: EASE_IN_OUT, repeat: Infinity, delay: 2 }}
                 >
                   <ArrowRight size={11} />
                 </motion.span>

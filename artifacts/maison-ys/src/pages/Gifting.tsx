@@ -2,10 +2,12 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { baccaratGiftImg, gridImg } from "@/lib/images";
 
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 export default function Gifting() {
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } }
   };
 
   return (
