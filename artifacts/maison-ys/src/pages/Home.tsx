@@ -6,8 +6,8 @@ import heroMobileImg from "@assets/abc-mobile_(1)_1776804978771.png";
 import { baccaratGiftImg, productImages } from "@/lib/images";
 import { fragrances, collections } from "@/lib/data";
 
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const EASE_IN_OUT: [number, number, number, number] = [0.83, 0, 0.17, 1];
+const EASE_OUT = [0.22, 1, 0.36, 1];
+const EASE_IN_OUT = [0.83, 0, 0.17, 1];
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -19,13 +19,11 @@ const fadeIn: Variants = {
   visible: { opacity: 1, transition: { duration: 1.2, ease: EASE_OUT } }
 };
 
-// Desktop: slow cinematic Ken Burns — scale + drift, mirror so no hard loop reset
 const kenBurnsDesktop = {
   animate: { scale: [1, 1.045], x: [0, -14], y: [0, -9] },
   transition: { duration: 30, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror" as const },
 };
 
-// Mobile: scale-only Ken Burns, no x drift — keeps bottle centred
 const kenBurnsMobile = {
   animate: { scale: [1, 1.03], y: [0, -6] },
   transition: { duration: 28, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror" as const },
@@ -33,12 +31,11 @@ const kenBurnsMobile = {
 
 export default function Home() {
   const featuredFragrances = [
-    fragrances.find(f => f.collectionKey === "noire")!,
-    fragrances.find(f => f.collectionKey === "pierre")!,
-    fragrances.find(f => f.collectionKey === "doree")!,
+    fragrances.find((f) => f.collectionKey === "noire")!,
+    fragrances.find((f) => f.collectionKey === "pierre")!,
+    fragrances.find((f) => f.collectionKey === "doree")!,
   ];
 
-  // Desktop mouse parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 35, damping: 40 });
@@ -48,22 +45,22 @@ export default function Home() {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width * 2 - 1);
-    mouseY.set((e.clientY - rect.top) / rect.height * 2 - 1);
+    mouseX.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
+    mouseY.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
   };
-  const handleMouseLeave = () => { mouseX.set(0); mouseY.set(0); };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
     <div className="w-full">
-
       {/* ─── HERO ─── */}
 
       {/* ── MOBILE HERO (below md) ── */}
       <section className="md:hidden relative h-[100dvh] w-full overflow-hidden bg-[#1c0e04] flex flex-col">
-        {/* ── Atmospheric image stack ── */}
         <div className="absolute inset-0 z-0">
-
-          {/* Base image — slow Ken Burns */}
           <motion.div
             className="absolute inset-[-5%]"
             animate={kenBurnsMobile.animate}
@@ -77,20 +74,15 @@ export default function Home() {
             />
           </motion.div>
 
-          {/* Text-side legibility gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#1c0e04]/82 from-[8%] via-[#1c0e04]/28 via-[42%] to-transparent" />
-          {/* Top vignette */}
           <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-[#1c0e04]/55 to-transparent" />
-          {/* Bottom depth vignette */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#1c0e04]/50 to-transparent" />
 
-          {/* Deep radial vignette — adds bottle depth, editorial shadow */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{ background: "radial-gradient(ellipse 85% 85% at 65% 55%, transparent 38%, rgba(8,5,2,0.55) 100%)" }}
           />
 
-          {/* Atmosphere layer 1: warm amber haze drift — slow, mirrored */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.06, 0.2, 0.06], x: [0, 18, 0] }}
@@ -98,7 +90,6 @@ export default function Home() {
             style={{ background: "radial-gradient(ellipse 60% 55% at 62% 52%, rgba(190,105,12,0.28) 0%, transparent 68%)" }}
           />
 
-          {/* Atmosphere layer 2: secondary haze — different phase, drifts opposite */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.04, 0.14, 0.04], x: [0, -12, 0] }}
@@ -106,7 +97,6 @@ export default function Home() {
             style={{ background: "radial-gradient(ellipse 45% 50% at 70% 60%, rgba(160,85,8,0.2) 0%, transparent 62%)" }}
           />
 
-          {/* Amber bottle glow — breathes on its own cadence */}
           <motion.div
             className="absolute pointer-events-none"
             style={{
@@ -119,10 +109,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Content — left-aligned, vertically centered */}
         <div className="relative z-20 flex flex-col justify-center flex-1 pt-6 px-7 w-[58%]">
-
-          {/* Label with dash */}
           <motion.div
             initial={{ opacity: 0, x: -14 }}
             animate={{ opacity: 1, x: 0 }}
@@ -140,7 +127,6 @@ export default function Home() {
             </span>
           </motion.div>
 
-          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,10 +134,11 @@ export default function Home() {
             className="text-stone font-serif leading-[0.95] tracking-[0.03em] uppercase mb-6"
             style={{ fontSize: "clamp(2.8rem, 12vw, 3.8rem)" }}
           >
-            Rare par<br />nature.
+            Rare par
+            <br />
+            nature.
           </motion.h1>
 
-          {/* Italic gold subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -162,7 +149,6 @@ export default function Home() {
             Raffiné avec intention.
           </motion.p>
 
-          {/* CTA — premium hover */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,10 +175,7 @@ export default function Home() {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        {/* ── Atmospheric image stack ── */}
         <div className="absolute inset-0 z-0">
-
-          {/* Base image — Ken Burns drift + spring mouse parallax on top */}
           <motion.div
             className="absolute inset-[-6%]"
             style={{ x: imgParallaxX, y: imgParallaxY }}
@@ -207,18 +190,14 @@ export default function Home() {
             />
           </motion.div>
 
-          {/* Text-side legibility gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#080706]/82 from-[18%] via-[#080706]/28 via-[46%] to-transparent" />
-          {/* Top + bottom vignette */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#080706]/65 via-transparent to-[#080706]/22" />
 
-          {/* Deep editorial vignette — pushes bottle into focus, frames the shot */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{ background: "radial-gradient(ellipse 80% 80% at 66% 50%, transparent 32%, rgba(5,3,1,0.62) 100%)" }}
           />
 
-          {/* Atmosphere layer 1: primary amber haze — drifts right, long cycle */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.05, 0.22, 0.05], x: [0, 28, 0] }}
@@ -226,7 +205,6 @@ export default function Home() {
             style={{ background: "radial-gradient(ellipse 55% 65% at 60% 50%, rgba(195,108,12,0.3) 0%, transparent 68%)" }}
           />
 
-          {/* Atmosphere layer 2: secondary haze — drifts left, different cadence */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.03, 0.16, 0.03], x: [0, -20, 0] }}
@@ -234,7 +212,6 @@ export default function Home() {
             style={{ background: "radial-gradient(ellipse 48% 58% at 72% 55%, rgba(165,88,8,0.22) 0%, transparent 64%)" }}
           />
 
-          {/* Atmosphere layer 3: cool dark smoke counter-drift — adds depth dimension */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             animate={{ opacity: [0.0, 0.1, 0.0], x: [0, 14, 0], y: [0, -8, 0] }}
@@ -242,7 +219,6 @@ export default function Home() {
             style={{ background: "radial-gradient(ellipse 40% 45% at 78% 42%, rgba(80,45,5,0.25) 0%, transparent 70%)" }}
           />
 
-          {/* Amber bottle glow — breathes with scale, anchored to bottle light source */}
           <motion.div
             className="absolute pointer-events-none"
             style={{
@@ -254,7 +230,6 @@ export default function Home() {
             transition={{ duration: 10, ease: EASE_IN_OUT, repeat: Infinity, repeatType: "mirror", delay: 2 }}
           />
 
-          {/* Secondary warm shimmer — lantern area, right edge */}
           <motion.div
             className="absolute pointer-events-none"
             style={{
@@ -267,10 +242,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Left content */}
         <div className="relative z-20 flex flex-col px-16 lg:px-24 xl:px-32 max-w-[55%]">
-
-          {/* Brand label — animated dash line grows in */}
           <motion.div
             initial={{ opacity: 0, x: -18 }}
             animate={{ opacity: 1, x: 0 }}
@@ -288,7 +260,6 @@ export default function Home() {
             </span>
           </motion.div>
 
-          {/* Main headline — elegant upward reveal */}
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
@@ -296,10 +267,11 @@ export default function Home() {
             className="text-stone font-serif leading-[1.0] tracking-[0.06em] uppercase mb-6"
             style={{ fontSize: "clamp(3.2rem, 5.8vw, 5.5rem)" }}
           >
-            Rare par<br />nature.
+            Rare par
+            <br />
+            nature.
           </motion.h1>
 
-          {/* Italic gold subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -310,7 +282,6 @@ export default function Home() {
             Raffiné avec intention.
           </motion.p>
 
-          {/* CTA — premium hover lift + glow */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -335,7 +306,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator — slow fade-in loop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 0.5, 0] }}
@@ -359,7 +329,9 @@ export default function Home() {
             <div className="w-px h-20 bg-gold/40 mb-16" />
             <p className="text-obsidian/40 tracking-[0.3em] uppercase text-xs mb-8">La Maison</p>
             <h2 className="text-obsidian text-2xl md:text-4xl font-serif leading-relaxed mb-10">
-              « L'art de l'invisible.<br />Le don de la présence. »
+              « L'art de l'invisible.
+              <br />
+              Le don de la présence. »
             </h2>
             <p className="text-obsidian/55 tracking-widest uppercase text-xs leading-loose max-w-sm">
               Des extraits de parfum rares, élaborés pour ceux qui comprennent la différence entre porter un parfum et incarner une présence.
@@ -439,7 +411,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {collections.map((col, i) => {
-              const firstFrag = fragrances.find(f => f.collectionKey === col.key)!;
+              const firstFrag = fragrances.find((f) => f.collectionKey === col.key)!;
               return (
                 <motion.div
                   key={col.key}
@@ -486,7 +458,9 @@ export default function Home() {
             >
               <p className="text-gold/60 tracking-[0.3em] uppercase text-xs mb-6">Offrir la distinction</p>
               <h3 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
-                Le Don de la<br />Pure Opulence
+                Le Don de la
+                <br />
+                Pure Opulence
               </h3>
               <p className="text-stone/50 leading-relaxed mb-12 max-w-sm text-sm">
                 Encaissés dans des textures de marbre sombre et signés de notre sceau doré, nos coffrets transforment l'acte d'offrir en rituel inoubliable.
@@ -528,7 +502,9 @@ export default function Home() {
           >
             <div className="w-px h-16 bg-gold/40 mb-16" />
             <h2 className="text-2xl md:text-4xl font-serif mb-12 leading-relaxed">
-              Votre signature olfactive<br />vous attend.
+              Votre signature olfactive
+              <br />
+              vous attend.
             </h2>
             <Link href="/collection">
               <span className="inline-flex items-center gap-5 text-xs tracking-[0.25em] uppercase bg-obsidian text-stone px-10 py-4 hover:bg-gold hover:text-obsidian transition-all duration-700 cursor-pointer">
@@ -538,7 +514,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
     </div>
   );
 }

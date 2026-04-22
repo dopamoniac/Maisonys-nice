@@ -1,40 +1,47 @@
-import { useParams } from "wouter";
+import { useParams, Link } from "wouter";
 import { motion, type Variants } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import { fragrances } from "@/lib/data";
 import { productImages } from "@/lib/images";
-import { ArrowRight, Check } from "lucide-react";
-import { Link } from "wouter";
 
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE_OUT = [0.22, 1, 0.36, 1];
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE_OUT } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: EASE_OUT },
+  },
 };
 
 const stagger: Variants = {
-  visible: { transition: { staggerChildren: 0.1 } },
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1 },
+  },
 };
 
 export default function Product() {
   const { name } = useParams();
   const decodedName = decodeURIComponent(name || "");
-  const fragrance = fragrances.find(f => f.name === decodedName) || fragrances[0];
+  const fragrance = fragrances.find((f) => f.name === decodedName) || fragrances[0];
 
-  const otherCollections = [...new Set(fragrances.map(f => f.collectionKey))].filter(k => k !== fragrance.collectionKey);
+  const otherCollections = [...new Set(fragrances.map((f) => f.collectionKey))].filter(
+    (k) => k !== fragrance.collectionKey
+  );
+
   const recommendations = otherCollections
-    .map(key => fragrances.find(f => f.collectionKey === key)!)
+    .map((key) => fragrances.find((f) => f.collectionKey === key)!)
     .slice(0, 3);
 
   const productImage = productImages[fragrance.imageKey];
 
   return (
     <div className="w-full bg-stone min-h-screen pt-24">
-
       {/* ─── HERO GRID ─── */}
       <section className="container mx-auto px-8 py-16 md:py-24 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-
           {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
@@ -51,19 +58,18 @@ export default function Product() {
           </motion.div>
 
           {/* Info */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="flex flex-col"
-          >
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="flex flex-col">
             <motion.div variants={fadeUp} className="w-px h-12 bg-obsidian/15 mb-10" />
 
             {/* Family + Mood */}
             <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4">
-              <span className="text-obsidian/40 tracking-[0.3em] uppercase text-xs">{fragrance.family}</span>
+              <span className="text-obsidian/40 tracking-[0.3em] uppercase text-xs">
+                {fragrance.family}
+              </span>
               <span className="text-obsidian/20">·</span>
-              <span className="text-gold tracking-[0.2em] uppercase text-xs font-medium">{fragrance.mood}</span>
+              <span className="text-gold tracking-[0.2em] uppercase text-xs font-medium">
+                {fragrance.mood}
+              </span>
             </motion.div>
 
             {/* Name */}
@@ -77,7 +83,10 @@ export default function Product() {
             </motion.p>
 
             {/* Tagline */}
-            <motion.p variants={fadeUp} className="text-obsidian/80 font-serif text-xl md:text-2xl leading-snug mb-5">
+            <motion.p
+              variants={fadeUp}
+              className="text-obsidian/80 font-serif text-xl md:text-2xl leading-snug mb-5"
+            >
               {fragrance.tagline}
             </motion.p>
 
@@ -117,7 +126,6 @@ export default function Product() {
       {/* ─── CONTENT DETAIL ─── */}
       <section className="bg-obsidian py-28 w-full">
         <div className="container mx-auto px-8 max-w-7xl">
-
           {/* Section label */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -131,14 +139,8 @@ export default function Product() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
-
             {/* Sensations */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
               <motion.p variants={fadeUp} className="text-gold tracking-[0.3em] uppercase text-xs mb-8">
                 Ce que vous ressentez
               </motion.p>
@@ -153,12 +155,7 @@ export default function Product() {
             </motion.div>
 
             {/* Usage */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
               <motion.p variants={fadeUp} className="text-gold tracking-[0.3em] uppercase text-xs mb-8">
                 Quand le porter
               </motion.p>
@@ -173,12 +170,7 @@ export default function Product() {
             </motion.div>
 
             {/* Benefits */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
               <motion.p variants={fadeUp} className="text-gold tracking-[0.3em] uppercase text-xs mb-8">
                 Pourquoi choisir {fragrance.name}
               </motion.p>
@@ -214,7 +206,9 @@ export default function Product() {
           <div className="mb-16">
             <div className="w-8 h-px bg-obsidian/25 mb-6" />
             <h2 className="text-3xl font-serif text-obsidian mb-2">Vous aimerez aussi</h2>
-            <p className="text-obsidian/30 tracking-widest uppercase text-xs">D'autres collections de la Maison</p>
+            <p className="text-obsidian/30 tracking-widest uppercase text-xs">
+              D'autres collections de la Maison
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -240,8 +234,13 @@ export default function Product() {
                     </div>
                     <p className="text-xs uppercase tracking-widest text-gold/70 mb-1">{f.mood}</p>
                     <div className="flex items-center gap-2">
-                      <h3 className="font-serif text-xl text-obsidian group-hover:text-gold transition-colors duration-500">{f.name}</h3>
-                      <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 group-hover:text-gold transition-all" />
+                      <h3 className="font-serif text-xl text-obsidian group-hover:text-gold transition-colors duration-500">
+                        {f.name}
+                      </h3>
+                      <ArrowRight
+                        size={12}
+                        className="opacity-0 group-hover:opacity-100 group-hover:text-gold transition-all"
+                      />
                     </div>
                     <p className="text-xs text-obsidian/40 mt-1 leading-relaxed">{f.shortDescription}</p>
                   </div>
